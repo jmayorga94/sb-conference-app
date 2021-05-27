@@ -27,7 +27,7 @@ public class SpeakersController {
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public Speaker create(@RequestBody final Speaker speaker){
+    public Speaker createSpeaker(@RequestBody final Speaker speaker){
         return speakerRepository.saveAndFlush(speaker);
     }
 

@@ -35,7 +35,7 @@ public class SessionsController {
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     @ResponseStatus(value= HttpStatus.CREATED)
-    public Session create(@RequestBody final Session session){
+    public Session createSession(@RequestBody final Session session){
         return sessionRepository.saveAndFlush(session);
     }
 
