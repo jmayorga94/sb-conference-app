@@ -2,6 +2,7 @@ package com.devsession.conferencedemoapi.controllers;
 
 import com.devsession.conferencedemoapi.models.Speaker;
 import com.devsession.conferencedemoapi.repositories.SpeakerRepository;
+import io.swagger.annotations.Api;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
