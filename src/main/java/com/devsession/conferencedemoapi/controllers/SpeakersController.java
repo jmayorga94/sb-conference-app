@@ -19,9 +19,9 @@ public class SpeakersController {
     public List<Speaker> list(){
         return speakerRepository.findAll();
     }
-    
+
     @RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = "application/json")
-    public Speaker getBy(Long id){
+    public Speaker getBy(@PathVariable  Long id){
         return speakerRepository.getById(id);
     }
 
