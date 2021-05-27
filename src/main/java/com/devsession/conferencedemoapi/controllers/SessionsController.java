@@ -20,20 +20,21 @@ public class SessionsController {
     private SessionRepository sessionRepository;
 
 
-    @GetMapping
+    @RequestMapping(method = RequestMethod.GET, path = "/", produces = "application/json")
+    @ApiOperation("Returns a complete list of sessions.")
     public List<Session> list(){
         return sessionRepository.findAll();
 
     }
 
-    @GetMapping
     @RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = "application/json")
-    @ApiOperation("Returns a specific session by their identifier. 404 if does not exist.")
-    public Session get(@PathVariable Long id){
+    @ApiOperation("Returns a single session.")
+    public Session getSessionById(@PathVariable Long id){
         return sessionRepository.getById(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
+    @ApiOperation("creates a session entity.")
     @ResponseStatus(value= HttpStatus.CREATED)
     public Session createSession(@RequestBody final Session session){
         return sessionRepository.saveAndFlush(session);
@@ -41,14 +42,15 @@ public class SessionsController {
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
     @ApiOperation("Deletes a person from the system. 404 if the person's identifier is not found.")
-    public void delete(@PathVariable Long id){
+    public void deleteSession(@PathVariable Long id){
         sessionRepository.deleteById(id);
     }
 
 
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}", produces = "application/json")
-    public Session update(@PathVariable Long id, @RequestBody Session session){
-        //TODO:  add validation
+    @ApiOperation("Updates a session entity")
+    public Session updateSession(@PathVariable Long id, @RequestBody Session session){
+        //TODO:  add missing validation
         Session existingSession = sessionRepository.getById(id);
         BeanUtils.copyProperties(session,existingSession,"session_id");
         return sessionRepository.saveAndFlush(existingSession);
