@@ -3,6 +3,9 @@ package com.devsession.conferencedemoapi.controllers;
 
 import com.devsession.conferencedemoapi.models.Session;
 import com.devsession.conferencedemoapi.repositories.SessionRepository;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,23 +27,26 @@ public class SessionsController {
     }
 
     @GetMapping
-    @RequestMapping("{id}")
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = "application/json")
+    @ApiOperation("Returns a specific session by their identifier. 404 if does not exist.")
     public Session get(@PathVariable Long id){
         return sessionRepository.getById(id);
     }
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     @ResponseStatus(value= HttpStatus.CREATED)
     public Session create(@RequestBody final Session session){
         return sessionRepository.saveAndFlush(session);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+    @ApiOperation("Deletes a person from the system. 404 if the person's identifier is not found.")
     public void delete(@PathVariable Long id){
         sessionRepository.deleteById(id);
     }
 
-    @RequestMapping(value="{id}",method = RequestMethod.PUT)
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/{id}", produces = "application/json")
     public Session update(@PathVariable Long id, @RequestBody Session session){
         //TODO:  add validation
         Session existingSession = sessionRepository.getById(id);

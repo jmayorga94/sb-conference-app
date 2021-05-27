@@ -19,18 +19,18 @@ public class SpeakersController {
     public List<Speaker> list(){
         return speakerRepository.findAll();
     }
-
-    @GetMapping("{id}")
+    
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = "application/json")
     public Speaker getBy(Long id){
         return speakerRepository.getById(id);
     }
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public Speaker create(@RequestBody final Speaker speaker){
         return speakerRepository.saveAndFlush(speaker);
     }
 
-    @RequestMapping(value = "{id}",method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{id}", produces = "application/json")
     public void DeleteSpeaker(@PathVariable Long id){
 
         speakerRepository.deleteById(id);
